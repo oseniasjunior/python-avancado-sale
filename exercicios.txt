@@ -1,0 +1,5 @@
+1) - Fazer uma consulta que retorne os funcionários que ganham entre 1000 e 5000 do sexo feminino;
+2) - Fazer uma consulta que retorne o nome do cliente o bairro onde ele mora;
+3) - Fazer uma consulta que retorne as cidades com a sigla dos estados;
+4) - Fazer uma consulta que retorne os 10 funcionários mais bem pagos;
+5) - Fazer uma consulta que retorne os 10 clientes com melhor renda mensal e casados;
