@@ -3,3 +3,9 @@
 3) - Fazer uma consulta que retorne as cidades com a sigla dos estados;
 4) - Fazer uma consulta que retorne os 10 funcionários mais bem pagos;
 5) - Fazer uma consulta que retorne os 10 clientes com melhor renda mensal e casados;
+6) - Total vendido por zona de cliente entre 2010 e 2015;
+7) - Total vendido por departamento no ano de 2010 entre o mês de janeiro e junho;
+8) - Total que deve ser pago de comissão por grupo de produto no ano de 2016;
+9) - Quantidade de clientes por zona;
+10) - Quantidade de cidades por estado;
+
