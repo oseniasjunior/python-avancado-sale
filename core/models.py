@@ -1,4 +1,5 @@
 from django.db import models
+from core import managers
 
 
 # Create your models here.
@@ -250,6 +251,8 @@ class Employee(ModelBase):
         max_length=1,
         choices=Gender.choices
     )
+    objects = models.Manager()
+    queries = managers.EmployeeManager()
 
     class Meta:
         db_table = 'employee'
@@ -311,6 +314,7 @@ class Sale(ModelBase):
         null=False,
         auto_now_add=True
     )
+    objects = managers.SaleManager()
 
     class Meta:
         db_table = 'sale'

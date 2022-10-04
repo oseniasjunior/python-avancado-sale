@@ -1,5 +1,6 @@
 from core import models
-from django.db.models import Sum, Avg, Min, Max, Q, ExpressionWrapper, F, FloatField, Value, Count
+from django.db.models import Sum, Avg, Min, Max, Q, ExpressionWrapper, F, FloatField, Value, Count, Subquery, OuterRef, \
+    CharField, Exists
 from django.db import connection
 
 
@@ -184,3 +185,34 @@ def questao17():
         quantity=Count('*')
     ).values('state__name', 'quantity')
     return queryset
+
+
+def questao18():
+    subquery = models.Sale.objects.filter(
+        saleitem__product=OuterRef('id')
+    ).annotate(max_date=Max('date')).values('max_date')
+    subquery.query.group_by = None
+
+    # sql = 'select max(s.date) from sale s inner join sale_item si where si.id_product = %s'
+
+    # subquery = models.Sale.objects.filter(
+    #     saleitem__product=OuterRef('id')
+    # ).order_by('-date').values('date')[:1]
+
+    queryset = models.Product.objects.annotate(
+        last_sale=Subquery(subquery)
+    ).values('id', 'name', 'last_sale')
+    return queryset
+
+
+def questao19():
+    subquery = models.Sale.objects.filter(employee=OuterRef('id'))
+    queryset = models.Employee.objects.annotate(
+        has_sale=Exists(subquery)
+    ).filter(has_sale=True).values('name')
+    return queryset
+
+
+def questao20():
+    subquery = models.Employee.objects.filter(gender=models.Employee.Gender.MALE, department=OuterRef('id'))
+    return models.Department.objects.annotate(_exists=Exists(subquery)).filter(_exists=False).values('name')
