@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 from django.db import models
 from core import managers
 
@@ -256,6 +258,9 @@ class Employee(ModelBase):
 
     class Meta:
         db_table = 'employee'
+
+    def upgrade_salary(self, upgrade_percentage):
+        return round(self.salary + (self.salary * (Decimal(upgrade_percentage) / 100)))
 
 
 class Product(ModelBase):

@@ -9,3 +9,8 @@
 9) - Quantidade de clientes por zona;
 10) - Quantidade de cidades por estado;
 
+RESTFRAMEWORK
+
+1) Criar um endpoint para retornar os funcionários de um determinado departamento (nome)
+2) Criar um endpoint para atualizar o salário de um funcionário específico,
+sendo que será enviado o percentual para aumento;
