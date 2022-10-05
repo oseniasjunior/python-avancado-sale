@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from core import models, serializers, actions, behaviors
+from core import models, serializers, actions, behaviors, serializers_params
 from decimal import Decimal
 
 
@@ -23,19 +23,18 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     @action(methods=['GET'], detail=False)
     def get_by_department(self, request, *args, **kwargs):
-        department = request.query_params.get('department')
+        department = request.query_params.get('department', '')
         self.queryset = models.Employee.objects.filter(department__name__icontains=department)
         return super(EmployeeViewSet, self).list(request, *args, **kwargs)
 
     @action(methods=['PATCH'], detail=True)
     def upgrade_salary(self, request, *args, **kwargs):
-        upgrade_percentage = request.data.pop('upgrade_percentage')
-        # request.data['salary'] = actions.EmployeeActions.upgrade_salary(self.get_object(), upgrade_percentage)
+        result_serializer = serializers_params.UpgradeSalarySerializer(data=request.data)
+        result_serializer.is_valid(raise_exception=True)
         employee: 'models.Employee' = self.get_object()
-        request.data['salary'] = employee.upgrade_salary(upgrade_percentage)
+        request.data['salary'] = employee.upgrade_salary(result_serializer.validated_data.get('upgrade_percentage'))
         # behavior_instance = behaviors.BaixaNoEstoqueBehavior(sale='')
         # behavior_instance.run()
-
         return super(EmployeeViewSet, self).partial_update(request, *args, **kwargs)
 
 
