@@ -1,32 +1,33 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from core import models, serializers, actions, behaviors, serializers_params, serializers_results
+from core import models, serializers, actions, behaviors, serializers_params, serializers_results, filters
 from decimal import Decimal
 
 
 class StateViewSet(viewsets.ModelViewSet):
     queryset = models.State.objects.all()
     serializer_class = serializers.StateSerializer
+    filterset_class = filters.StateFilter
 
-    @action(methods=['GET'], detail=False)
-    def get_by_name(self, request, *args, **kwargs):
-        name = request.query_params.get('name')
-        self.queryset = models.State.objects.filter(name__icontains=name)
-        # result_serializer = serializers.StateSerializer(instance=queryset, many=True)
-        # return Response(data=result_serializer.data, status=200)
-        return super(StateViewSet, self).list(request, *args, **kwargs)
+    # @action(methods=['GET'], detail=False)
+    # def get_by_name(self, request, *args, **kwargs):
+    #     name = request.query_params.get('name')
+    #     self.queryset = models.State.objects.filter(name__icontains=name)
+    #     # result_serializer = serializers.StateSerializer(instance=queryset, many=True)
+    #     # return Response(data=result_serializer.data, status=200)
+    #     return super(StateViewSet, self).list(request, *args, **kwargs)
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = models.Employee.objects.all()
     serializer_class = serializers.EmployeeSerializer
 
-    @action(methods=['GET'], detail=False)
-    def get_by_department(self, request, *args, **kwargs):
-        department = request.query_params.get('department', '')
-        self.queryset = models.Employee.objects.filter(department__name__icontains=department)
-        return super(EmployeeViewSet, self).list(request, *args, **kwargs)
+    # @action(methods=['GET'], detail=False)
+    # def get_by_department(self, request, *args, **kwargs):
+    #     department = request.query_params.get('department', '')
+    #     self.queryset = models.Employee.objects.filter(department__name__icontains=department)
+    #     return super(EmployeeViewSet, self).list(request, *args, **kwargs)
 
     @action(methods=['PATCH'], detail=True)
     def upgrade_salary(self, request, *args, **kwargs):
