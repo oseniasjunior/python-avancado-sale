@@ -35,6 +35,8 @@ class Department(ModelBase):
         unique=True
     )
 
+    objects = managers.DepartmentManager()
+
     class Meta:
         db_table = 'department'
 

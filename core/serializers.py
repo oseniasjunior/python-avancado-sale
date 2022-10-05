@@ -25,6 +25,13 @@ class DepartmentSerializer(serializers.ModelSerializer):
         model = models.Department
         fields = '__all__'
 
+    def validate(self, attrs):
+        pass
+        # actions.SaleItemActions.regra()
+
+        # behavior = behaviors.SaleItemBehavior()
+        # behavior.run()
+
 
 class ZoneSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)

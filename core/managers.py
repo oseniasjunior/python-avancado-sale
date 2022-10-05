@@ -1,4 +1,4 @@
-from django.db.models import Manager, Sum, FloatField, ExpressionWrapper, F
+from django.db.models import Manager, Sum, FloatField, ExpressionWrapper, F, Count, Value, IntegerField
 
 
 class SaleManager(Manager):
@@ -23,4 +23,16 @@ class EmployeeManager(Manager):
         return self.get_queryset().filter(
             gender=core_models.Employee.Gender.FEMALE,
             salary__range=(start_salary, end_salary)
+        )
+
+
+class DepartmentManager(Manager):
+    def increment_id(self):
+        return self.get_queryset().annotate(
+            count=ExpressionWrapper(F('id') + Value(1), output_field=IntegerField())
+        )
+
+    def total_employee(self):
+        return self.get_queryset().values('name').annotate(
+            count=Count('employee__id')
         )

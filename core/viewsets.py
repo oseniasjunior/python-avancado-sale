@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
-from core import models, serializers, actions, behaviors, serializers_params
+from rest_framework.response import Response
+from core import models, serializers, actions, behaviors, serializers_params, serializers_results
 from decimal import Decimal
 
 
@@ -46,3 +47,14 @@ class BranchViewSet(viewsets.ModelViewSet):
 class DepartmentViewSet(viewsets.ModelViewSet):
     queryset = models.Department.objects.all()
     serializer_class = serializers.DepartmentSerializer
+
+    @action(methods=['GET'], detail=False)
+    def increment_id(self, request, *args, **kwargs):
+        queryset = models.Department.objects.increment_id()
+        serializer_result = serializers_results.TotalEmployeeSerializer(instance=queryset, many=True)
+        return Response(data=serializer_result.data, status=200)
+
+    @action(methods=['GET'], detail=False)
+    def total_employee(self, request, *args, **kwargs):
+        queryset = models.Department.objects.total_employee()
+        return Response(data=queryset, status=200)
