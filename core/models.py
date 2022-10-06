@@ -345,6 +345,12 @@ class SaleItem(ModelBase):
         max_digits=16,
         decimal_places=3
     )
+    sale_price = models.DecimalField(
+        null=False,
+        max_digits=16,
+        decimal_places=2,
+        default=0
+    )
 
     class Meta:
         db_table = 'sale_item'
