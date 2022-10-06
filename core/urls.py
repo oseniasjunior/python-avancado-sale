@@ -3,6 +3,7 @@ from core import viewsets
 
 router = DefaultRouter()
 router.register('state', viewsets.StateViewSet)
+router.register('marital_status', viewsets.MaritalStatusViewSet)
 router.register('employee', viewsets.EmployeeViewSet)
 router.register('branch', viewsets.BranchViewSet)
 router.register('department', viewsets.DepartmentViewSet)

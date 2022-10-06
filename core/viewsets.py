@@ -19,12 +19,21 @@ class StateViewSet(viewsets.ModelViewSet):
     #     return super(StateViewSet, self).list(request, *args, **kwargs)
 
 
+class MaritalStatusViewSet(viewsets.ModelViewSet):
+    queryset = models.MaritalStatus.objects.all()
+    serializer_class = serializers.MaritalStatusSerializer
+
+
 class EmployeeViewSet(viewsets.ModelViewSet):
-    queryset = models.Employee.objects.all()
+    queryset = models.Employee.objects.select_related('marital_status').all()
     serializer_class = serializers.EmployeeSerializer
     filterset_class = filters.EmployeeFilter
     ordering_fields = '__all__'
     ordering = ('-id',)
+
+    # def list(self, request, *args, **kwargs):
+    #     self.queryset = self.queryset.select_related('marital_status')
+    #     return super(EmployeeViewSet, self).list(request, *args, **kwargs)
 
     # @action(methods=['GET'], detail=False)
     # def get_by_department(self, request, *args, **kwargs):

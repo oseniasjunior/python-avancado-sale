@@ -8,7 +8,18 @@ class StateSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class MaritalStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.MaritalStatus
+        fields = '__all__'
+
+
 class EmployeeSerializer(serializers.ModelSerializer):
+    marital_status_obj = MaritalStatusSerializer(
+        source='marital_status',
+        read_only=True
+    )
+
     class Meta:
         model = models.Employee
         fields = '__all__'
