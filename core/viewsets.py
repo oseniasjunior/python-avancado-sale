@@ -25,7 +25,7 @@ class MaritalStatusViewSet(viewsets.ModelViewSet):
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
-    queryset = models.Employee.objects.select_related('marital_status').all()
+    queryset = models.Employee.objects.select_related('marital_status', 'department').all()
     serializer_class = serializers.EmployeeSerializer
     filterset_class = filters.EmployeeFilter
     ordering_fields = '__all__'
@@ -85,5 +85,21 @@ class SaleItemViewSet(viewsets.ModelViewSet):
     queryset = models.SaleItem.objects.all()
     serializer_class = serializers.SaleItemSerializer
     filterset_class = filters.SaleItemFilter
+    ordering_fields = '__all__'
+    ordering = ('-id',)
+
+
+class DistrictViewSet(viewsets.ModelViewSet):
+    queryset = models.District.objects.select_related('city', 'city__state').all()
+    serializer_class = serializers.DistrictSerializer
+    # filterset_class = filters.SaleItemFilter
+    ordering_fields = '__all__'
+    ordering = ('-id',)
+
+
+class CityViewSet(viewsets.ModelViewSet):
+    queryset = models.City.objects.all()
+    serializer_class = serializers.CitySerializer
+    # filterset_class = filters.SaleItemFilter
     ordering_fields = '__all__'
     ordering = ('-id',)
