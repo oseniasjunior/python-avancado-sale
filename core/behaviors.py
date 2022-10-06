@@ -17,4 +17,6 @@ class BaixaNoEstoqueBehavior:
             pass
 
     def run(self):
-        pass
+        self._get_stock_address_entry()
+        self._get_stock_address_exit()
+        self._generate_movment_stock()

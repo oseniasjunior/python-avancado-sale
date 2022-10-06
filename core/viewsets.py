@@ -22,6 +22,9 @@ class StateViewSet(viewsets.ModelViewSet):
 class EmployeeViewSet(viewsets.ModelViewSet):
     queryset = models.Employee.objects.all()
     serializer_class = serializers.EmployeeSerializer
+    filterset_class = filters.EmployeeFilter
+    ordering_fields = '__all__'
+    ordering = ('-id',)
 
     # @action(methods=['GET'], detail=False)
     # def get_by_department(self, request, *args, **kwargs):
@@ -59,3 +62,19 @@ class DepartmentViewSet(viewsets.ModelViewSet):
     def total_employee(self, request, *args, **kwargs):
         queryset = models.Department.objects.total_employee()
         return Response(data=queryset, status=200)
+
+
+class SaleViewSet(viewsets.ModelViewSet):
+    queryset = models.Sale.objects.all()
+    serializer_class = serializers.SaleSerializer
+    # filterset_class = filters.EmployeeFilter
+    ordering_fields = '__all__'
+    ordering = ('-id',)
+
+
+class SaleItemViewSet(viewsets.ModelViewSet):
+    queryset = models.SaleItem.objects.all()
+    serializer_class = serializers.SaleItemSerializer
+    filterset_class = filters.SaleItemFilter
+    ordering_fields = '__all__'
+    ordering = ('-id',)

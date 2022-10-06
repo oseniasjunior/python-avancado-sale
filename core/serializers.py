@@ -63,3 +63,15 @@ class ZoneSerializer(serializers.Serializer):
             setattr(instance, key, value)
         instance.save()
         return instance
+
+
+class SaleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Sale
+        fields = '__all__'
+
+
+class SaleItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.SaleItem
+        fields = '__all__'

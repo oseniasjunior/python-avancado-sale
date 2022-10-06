@@ -6,5 +6,7 @@ router.register('state', viewsets.StateViewSet)
 router.register('employee', viewsets.EmployeeViewSet)
 router.register('branch', viewsets.BranchViewSet)
 router.register('department', viewsets.DepartmentViewSet)
+router.register('sale', viewsets.SaleViewSet)
+router.register('sale_item', viewsets.SaleItemViewSet)
 
 urlpatterns = router.urls
