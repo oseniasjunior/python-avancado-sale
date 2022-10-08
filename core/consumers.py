@@ -10,8 +10,8 @@ class SaleConsumer(AsyncJsonWebsocketConsumer):
     async def disconnect(self, code):
         await self.channel_layer.group_discard('sale', self.channel_name)
 
-    async def receive_json(self, content, **kwargs):
-        pass
+    async def receive_json(self, event, **kwargs):
+        await self.send_json(content=event['content'])
 
     async def group_message(self, event):
-        pass
+        await self.send_json(content=event['content'])
