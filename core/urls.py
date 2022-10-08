@@ -11,5 +11,6 @@ router.register('branch', viewsets.BranchViewSet)
 router.register('department', viewsets.DepartmentViewSet)
 router.register('sale', viewsets.SaleViewSet)
 router.register('sale_item', viewsets.SaleItemViewSet)
+router.register('long_time_task', viewsets.LongTimeTask, basename='long_time_task')
 
 urlpatterns = router.urls

@@ -8,3 +8,7 @@ class UpgradeSalarySerializer(serializers.Serializer):
         max_digits=10,
         decimal_places=2
     )
+
+
+class LongTimeTaskSerializer(serializers.Serializer):
+    long_time_task = serializers.IntegerField(required=True)

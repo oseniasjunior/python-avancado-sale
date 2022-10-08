@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from core import models, serializers, actions, behaviors, serializers_params, serializers_results, filters
+from core import models, serializers, actions, behaviors, serializers_params, serializers_results, filters, tasks
 from decimal import Decimal
 
 
@@ -103,3 +103,12 @@ class CityViewSet(viewsets.ModelViewSet):
     # filterset_class = filters.SaleItemFilter
     ordering_fields = '__all__'
     ordering = ('-id',)
+
+
+class LongTimeTask(viewsets.ViewSet):
+
+    def create(self, request, *args, **kwargs):
+        serializer_result = serializers_params.LongTimeTaskSerializer(data=request.data)
+        serializer_result.is_valid(raise_exception=True)
+        tasks.long_time_task.apply_async([serializer_result.validated_data.get('long_time_task')])
+        return Response(data={'message': 'O número de loops está sendo gerado'}, status=200)
